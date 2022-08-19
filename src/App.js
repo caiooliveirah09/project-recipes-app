@@ -5,15 +5,13 @@ import { AppContext } from './context/AppContext';
 
 function App() {
   const { categories } = useContext(AppContext);
-  console.log(categories);
+
   return (
-    // <AppProvider>
     <div>
-      {categories && categories.map((category, key) => (
-        <p key={ key }>{category}</p>
+      {categories.map((category, key) => (
+        <p key={ key }>{category.strCategory}</p>
       ))}
     </div>
-    // </AppProvider>
   );
 }
 
