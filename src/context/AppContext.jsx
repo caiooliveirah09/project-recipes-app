@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppRecipesApi from '../utils/AppRecipesApi';
 
@@ -16,7 +16,7 @@ export function AppProvider({ children }) {
     setNationalities(nationalitiesData);
     setIngredients(ingredientsData);
     console.log('entrei', categories);
-    // console.log(categoriesData, nationalitiesData, ingredientsData);
+    console.log(categoriesData, nationalitiesData, ingredientsData);
   }, [ingredientsData]);
 
   const providerValue = {
