@@ -5,8 +5,6 @@ import AppRecipesApi from '../utils/AppRecipesApi';
 export const AppContext = createContext();
 
 export function AppProvider({ children }) {
-  const { categoriesData, nationalitiesData, ingredientsData } = AppRecipesApi();
-  console.log('ingredientsData', ingredientsData);
   const [categories, setCategories] = useState([]);
   const [nationalities, setNationalities] = useState([]);
   const [ingredients, setIngredients] = useState([]);
@@ -19,13 +17,12 @@ export function AppProvider({ children }) {
     console.log(categoriesData, nationalitiesData, ingredientsData);
   }, [ingredientsData]);
 
+
   const providerValue = {
     categories,
     nationalities,
     ingredients,
   };
-
-  console.log(providerValue);
 
   return (
     <AppContext.Provider value={ providerValue }>
