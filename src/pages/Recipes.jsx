@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import RecipeCard from '../components/RecipeCard';
 import fetchRecipes from '../utils/recipesApi';
+import RecipesCategories from '../components/RecipesCategories';
 
 // nudar o isFooRecipes para um State
 function Recipes({ isFoodRecipes }) {
   const [recipes, setRecipes] = useState([]);
+
   useEffect(() => {
     (
       async () => {
@@ -21,6 +23,7 @@ function Recipes({ isFoodRecipes }) {
   console.log(recipes);
   return (
     <div>
+      <RecipesCategories isFoodRecipes={ isFoodRecipes } />
       {recipes.map((recipe, index) => (
         <RecipeCard
           key={ index }
