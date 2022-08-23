@@ -1,35 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import Proptypes from 'prop-types';
+import React, { useContext } from 'react';
 import RecipeCard from './RecipeCard';
-import fetchRecipes from '../utils/recipesApi';
 import RecipesCategories from './RecipesCategories';
+import { RecipesContext } from '../context/RecipesContext';
 
-function Recipes({ isFoodRecipes }) {
-  const [recipes, setRecipes] = useState([]);
-
-  useEffect(() => {
-    (
-      async () => {
-        const recipesData = await fetchRecipes(isFoodRecipes);
-        const recipesFiltered = recipesData.map((recipe) => ({
-          name: recipe.strMeal || recipe.strDrink,
-          thumb: recipe.strMealThumb || recipe.strDrinkThumb,
-        }));
-        setRecipes(recipesFiltered);
-      }
-    )();
-  }, []);
+function Recipes() {
+  const { recipes } = useContext(RecipesContext);
 
   const style = {
     display: 'flex',
-    width: '210px',
+    width: '220px',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   };
 
   return (
     <div>
-      <RecipesCategories isFoodRecipes={ isFoodRecipes } />
+      <RecipesCategories />
       <div style={ style }>
         {recipes.map((recipe, index) => (
           <RecipeCard
@@ -43,9 +29,5 @@ function Recipes({ isFoodRecipes }) {
     </div>
   );
 }
-
-Recipes.propTypes = {
-  isFoodRecipes: Proptypes.bool.isRequired,
-};
 
 export default Recipes;
