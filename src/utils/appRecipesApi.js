@@ -1,4 +1,4 @@
-const AppRecipesApi = async () => {
+const appRecipesApi = async () => {
   const categoriesData = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.meals);
@@ -16,4 +16,4 @@ const AppRecipesApi = async () => {
   });
 };
 
-export default AppRecipesApi;
+export default appRecipesApi;

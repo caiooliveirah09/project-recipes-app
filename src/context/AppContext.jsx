@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AppRecipesApi from '../utils/AppRecipesApi';
+import appRecipesApi from '../utils/appRecipesApi';
 
 export const AppContext = createContext();
 
@@ -16,7 +16,7 @@ export function AppProvider({ children }) {
           categoriesData,
           nationalitiesData,
           ingredientsData,
-        } = await AppRecipesApi();
+        } = await appRecipesApi();
         setCategories(categoriesData);
         setNationalities(nationalitiesData);
         setIngredients(ingredientsData);
