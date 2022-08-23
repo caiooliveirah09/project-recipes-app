@@ -19,18 +19,27 @@ function Recipes({ isFoodRecipes }) {
       }
     )();
   }, []);
-  console.log(recipes);
+
+  const style = {
+    display: 'flex',
+    width: '210px',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  };
+
   return (
     <div>
       <RecipesCategories isFoodRecipes={ isFoodRecipes } />
-      {recipes.map((recipe, index) => (
-        <RecipeCard
-          key={ index }
-          index={ index }
-          thumb={ recipe.thumb }
-          name={ recipe.name }
-        />
-      ))}
+      <div style={ style }>
+        {recipes.map((recipe, index) => (
+          <RecipeCard
+            key={ index }
+            index={ index }
+            thumb={ recipe.thumb }
+            name={ recipe.name }
+          />
+        ))}
+      </div>
     </div>
   );
 }
