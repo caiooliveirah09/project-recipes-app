@@ -8,6 +8,8 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
 import { RecipesProvider } from './context/RecipesContext';
+import FoodDetail from './pages/FoodDetail';
+import DrinkDetail from './pages/DrinkDetail';
 
 function App() {
   // const { categories } = useContext(AppContext);
@@ -15,6 +17,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={ Login } />
+        <Route path="/foods/:id" component={ FoodDetail } />
+        <Route path="/drinks/:id" component={ DrinkDetail } />
         <RecipesProvider>
           <Route path="/foods" exact component={ Foods } />
           <Route path="/drinks" exact component={ Drinks } />
