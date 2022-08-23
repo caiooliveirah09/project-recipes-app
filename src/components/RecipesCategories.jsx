@@ -7,7 +7,7 @@ const RecipesCategories = () => {
   const [categories, setCategories] = useState([]);
 
   const handlerClick = ({ target }) => {
-    setFilter(target.value);
+    setFilter((oldState) => (oldState === target.value ? 'All' : target.value));
   };
 
   useEffect(() => {
