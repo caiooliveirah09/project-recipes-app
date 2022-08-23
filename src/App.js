@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import { AppContext } from './context/AppContext';
 import Login from './components/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
@@ -12,7 +11,6 @@ import FoodDetail from './pages/FoodDetail';
 import DrinkDetail from './pages/DrinkDetail';
 
 function App() {
-  // const { categories } = useContext(AppContext);
   return (
     <BrowserRouter>
       <Switch>
