@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import Recipes from './Recipes';
 
 export default function Drinks() {
   return (
     <div>
       <Header />
-      Drinks
+      <Recipes isFoodRecipes={ false } />
     </div>
   );
 }
