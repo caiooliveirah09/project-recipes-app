@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import AppRecipesApi from '../utils/AppRecipesApi';
+import appRecipesApi from '../utils/appRecipesApi';
 
 export const AppContext = createContext();
 
@@ -10,12 +10,19 @@ export function AppProvider({ children }) {
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
-    setCategories(categoriesData);
-    setNationalities(nationalitiesData);
-    setIngredients(ingredientsData);
-    console.log('entrei', categories);
-    console.log(categoriesData, nationalitiesData, ingredientsData);
-  }, [ingredientsData]);
+    (
+      async () => {
+        const {
+          categoriesData,
+          nationalitiesData,
+          ingredientsData,
+        } = await appRecipesApi();
+        setCategories(categoriesData);
+        setNationalities(nationalitiesData);
+        setIngredients(ingredientsData);
+      }
+    )();
+  }, []);
 
   const providerValue = {
     categories,
