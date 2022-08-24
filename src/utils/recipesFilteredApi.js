@@ -1,4 +1,4 @@
-const filterRecipesLength = (recipes) => (
+const filterRecipesLength = (recipes = []) => (
   recipes.filter((recipe, index) => {
     const LENGHT = 12;
     return index < LENGHT;
@@ -23,7 +23,8 @@ const drinkRecipesApi = async (filter) => {
 
 const fetchRecipesFiltered = async (isFoodRecipes, filter) => {
   if (isFoodRecipes) return foodRecipesApi(filter);
-  return drinkRecipesApi(filter);
+  if (isFoodRecipes !== undefined) return drinkRecipesApi(filter);
+  return [];
 };
 
 export default fetchRecipesFiltered;

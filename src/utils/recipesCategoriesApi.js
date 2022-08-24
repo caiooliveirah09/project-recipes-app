@@ -23,7 +23,8 @@ const drinkCategoriesRecipesApi = async () => {
 
 const fetchRecipesCategories = async (isFoodRecipes) => {
   if (isFoodRecipes) return foodCategoriesRecipesApi();
-  return drinkCategoriesRecipesApi();
+  if (isFoodRecipes !== undefined) return drinkCategoriesRecipesApi();
+  return [];
 };
 
 export default fetchRecipesCategories;
