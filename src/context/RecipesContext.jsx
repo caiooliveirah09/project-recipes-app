@@ -9,7 +9,7 @@ export function RecipesProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState('All');
   const [isFoodRecipes, setIsFoodRecipes] = useState();
-  console.log(isFoodRecipes);
+
   useEffect(() => {
     if (isFoodRecipes !== undefined) {
       (
