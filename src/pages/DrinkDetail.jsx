@@ -7,8 +7,9 @@ export default function DrinkDetail() {
   return (
     <div>
       Drink Detail
-      {' '}
-      {id}
+      <p>
+        {` id: ${id}`}
+      </p>
     </div>
   );
 }
