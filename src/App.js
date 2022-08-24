@@ -15,12 +15,12 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={ Login } />
-        <Route path="/foods/:id" component={ FoodDetail } />
-        <Route path="/drinks/:id" component={ DrinkDetail } />
         <Route path="/profile" exact component={ Profile } />
         <Route path="/done-recipes" exact component={ DoneRecipes } />
         <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
         <RecipesProvider>
+          <Route path="/foods/:id" component={ FoodDetail } />
+          <Route path="/drinks/:id" component={ DrinkDetail } />
           <Route path="/foods" exact component={ Foods } />
           <Route path="/drinks" exact component={ Drinks } />
         </RecipesProvider>
