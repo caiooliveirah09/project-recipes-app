@@ -14,7 +14,8 @@ const RecipesCategories = () => {
     (
       async () => {
         const categoriesData = await fetchRecipesCategories(isFoodRecipes);
-        const categoriesFiltered = categoriesData.map((category) => category.strCategory);
+        const categoriesFiltered = categoriesData
+          .map((category) => category.strCategory);
         setCategories(['All', ...categoriesFiltered]);
       }
     )();
