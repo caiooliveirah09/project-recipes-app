@@ -1,34 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import Proptypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
 import fetchRecipesCategories from '../utils/recipesCategoriesApi';
+import { RecipesContext } from '../context/RecipesContext';
 
-const RecipesCategories = ({ isFoodRecipes }) => {
+const RecipesCategories = () => {
+  const { isFoodRecipes, setFilter } = useContext(RecipesContext);
   const [categories, setCategories] = useState([]);
+
+  const handlerClick = ({ target }) => {
+    setFilter((oldState) => (oldState === target.value ? 'All' : target.value));
+  };
 
   useEffect(() => {
     (
       async () => {
         const categoriesData = await fetchRecipesCategories(isFoodRecipes);
-        const categoriesFiltered = categoriesData.map((category) => category.strCategory);
-        setCategories(categoriesFiltered);
+        const categoriesFiltered = categoriesData
+          .map((category) => category.strCategory);
+        setCategories(['All', ...categoriesFiltered]);
       }
     )();
-  }, []);
+  }, [isFoodRecipes]);
 
   return (
     <div>
-      {categories.map((category, key) => (<input
-        type="button"
-        data-testid={ `${category}-category-filter` }
-        value={ category }
-        key={ key }
-      />))}
+      {categories.map((category, key) => (
+        <input
+          type="button"
+          data-testid={ `${category}-category-filter` }
+          value={ category }
+          key={ key }
+          onClick={ handlerClick }
+        />
+      ))}
     </div>
   );
-};
-
-RecipesCategories.propTypes = {
-  isFoodRecipes: Proptypes.bool.isRequired,
 };
 
 export default RecipesCategories;

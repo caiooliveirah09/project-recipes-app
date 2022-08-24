@@ -10,7 +10,12 @@ function RecipeCard({ index, thumb, name }) {
         alt={ `${name}` }
         data-testid={ `${index}-card-img` }
       />
-      <p data-testid={ `${index}-card-name` }>{`${name}`}</p>
+      <p
+        style={ { width: '100px' } }
+        data-testid={ `${index}-card-name` }
+      >
+        {`${name}`}
+      </p>
     </div>
   );
 }

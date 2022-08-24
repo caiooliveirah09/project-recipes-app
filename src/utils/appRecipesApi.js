@@ -1,11 +1,14 @@
 const appRecipesApi = async () => {
-  const categoriesData = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+  const categoriesData = await
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.meals);
-  const nationalitiesData = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+  const nationalitiesData = await
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
     .then((res) => res.json())
     .then((res) => res.meals);
-  const ingredientsData = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+  const ingredientsData = await
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
     .then((res) => res.json())
     .then((res) => res.meals);
 

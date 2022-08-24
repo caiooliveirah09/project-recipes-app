@@ -6,14 +6,16 @@ const filterRecipesLength = (categories) => (
 );
 
 const foodCategoriesRecipesApi = async () => {
-  const categories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+  const categories = await
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.meals);
   return filterRecipesLength(categories);
 };
 
 const drinkCategoriesRecipesApi = async () => {
-  const categories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+  const categories = await
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.drinks);
   return filterRecipesLength(categories);
