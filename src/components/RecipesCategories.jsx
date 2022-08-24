@@ -5,7 +5,7 @@ import { RecipesContext } from '../context/RecipesContext';
 const RecipesCategories = () => {
   const { isFoodRecipes, setFilter } = useContext(RecipesContext);
   const [categories, setCategories] = useState([]);
-
+  console.log(isFoodRecipes);
   const handlerClick = ({ target }) => {
     setFilter((oldState) => (oldState === target.value ? 'All' : target.value));
   };
