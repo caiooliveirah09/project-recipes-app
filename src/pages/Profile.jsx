@@ -7,6 +7,9 @@ export default function Profile() {
   const email = localStorage.getItem('user');
   // const history = useHistory();
 
+  function clearHandler() {
+    localStorage.clear();
+  }
   // function handler(a) {
   //   return history.push(`/${a}`);
   // }
@@ -42,7 +45,7 @@ export default function Profile() {
           <button
             data-testid="profile-logout-btn"
             type="button"
-            onClick={ localStorage.clear }
+            onClick={ clearHandler }
           >
             Logout
 
