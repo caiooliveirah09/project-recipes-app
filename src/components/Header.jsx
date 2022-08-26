@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header() {
   const [searchArea, setSearchArea] = useState(false);
@@ -14,6 +15,7 @@ function Header() {
     '/favorite-recipes': 'Favorite Recipes',
     '/profile': 'Profile',
   };
+
   return (
     <header>
       <h1 data-testid="page-title">{routeObject[pathname]}</h1>
@@ -31,6 +33,7 @@ function Header() {
         </button>
       )}
       {searchArea && <input placeholder="Pesquisar" data-testid="search-input" />}
+      <SearchBar />
     </header>
   );
 }
