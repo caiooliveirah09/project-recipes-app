@@ -1,42 +1,23 @@
+import clipboardCopy from 'clipboard-copy';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesContext';
 import getRecipeById from '../utils/getRecipeById';
 import fetchRecommendedRecipes from '../utils/recommendedRecipes';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-// Os trechos comentados são a implementação de um carrossel.
-// Porém, não passa nos tests, implementar apenas depois de finalizar tudo
 function RecipeDetail() {
   const { id } = useParams();
   const location = useLocation();
   const { isFoodRecipes } = useContext(RecipesContext);
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recommendations, setRecommendations] = useState([]);
-  // const [recommendationsFiltered, setRecommendationsFiltered] = useState([]);
-  // const [recommendationPage, setRecommendationPage] = useState(0);
+  const [wasCopied, setWasCopied] = useState(false);
+  const [isRecipeFavorite, setIsRecipeFavorite] = useState();
 
-  // const nextRecommendations = () => {
-  //   console.log('nextRecommendations');
-  //   console.log('recommendationPage:', recommendationPage);
-  //   const LAST_PAGE = 3;
-  //   if (recommendationPage < LAST_PAGE) {
-  //     const page = recommendationPage + 2;
-  //     console.log('page:', page);
-  //     setRecommendationsFiltered([recommendations[page], recommendations[page + 1]]);
-  //     setRecommendationPage(page);
-  //   }
-  // };
+  const favoriteIcon = isRecipeFavorite ? blackHeartIcon : whiteHeartIcon;
 
-  // const previousRecommendations = () => {
-  //   console.log('previousRecommendations');
-  //   console.log('recommendationPage:', recommendationPage);
-  //   if (recommendationPage > 1) {
-  //     const page = recommendationPage - 2;
-  //     console.log('page:', page);
-  //     setRecommendationsFiltered([recommendations[page], recommendations[page + 1]]);
-  //     setRecommendationPage(page);
-  //   }
-  // };
   const wasAlreadyDone = () => {
     if (!recipeDetails.id) return false;
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -55,17 +36,47 @@ function RecipeDetail() {
     );
   };
 
+  const verifyRecipeFavorite = () => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    return !!favoriteRecipes.find((recipe) => recipe.id === recipeDetails.id);
+  };
+
+  const removeFavorite = () => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const newFavoriteRecipes = favoriteRecipes
+      .filter((recipe) => recipe.id !== recipeDetails.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+    setIsRecipeFavorite(false);
+  };
+
+  const addFavorite = () => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setIsRecipeFavorite(true);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(
+      [...favoriteRecipes, {
+        id: recipeDetails.id,
+        type: isFoodRecipes ? 'food' : 'drink',
+        nationality: recipeDetails.nationality,
+        category: recipeDetails.category,
+        alcoholicOrNot: recipeDetails.alcoholic,
+        name: recipeDetails.name,
+        image: recipeDetails.thumb,
+      }],
+    ));
+  };
+
+  const handlerFavoriteRecipe = () => {
+    if (verifyRecipeFavorite()) removeFavorite();
+    else addFavorite();
+  };
+
+  const copyLink = () => {
+    clipboardCopy(window.location.href);
+    setWasCopied(true);
+  };
+
   useEffect(() => {
     if (isFoodRecipes !== undefined) {
-      // const oi = {
-      //   cocktails: {
-      //     52804: [1, 2],
-      //   },
-      //   meals: {
-      //     15288: [2, 1],
-      //   },
-      // };
-      // localStorage.setItem('inProgressRecipes', JSON.stringify(oi));
       (
         async () => {
           const recipeData = await getRecipeById(isFoodRecipes, id);
@@ -73,11 +84,20 @@ function RecipeDetail() {
           const LENGTH = 6;
           const recommendedData = await fetchRecommendedRecipes(!isFoodRecipes, LENGTH);
           setRecommendations(recommendedData);
-          // setRecommendationsFiltered([recommendedData[0], recommendedData[1]]);
         }
       )();
     }
   }, [isFoodRecipes]);
+
+  useEffect(() => {
+    if (recipeDetails.id !== undefined) {
+      (
+        async () => {
+          setIsRecipeFavorite(verifyRecipeFavorite());
+        }
+      )();
+    }
+  }, [recipeDetails]);
 
   return (
     <div>
@@ -93,17 +113,23 @@ function RecipeDetail() {
       <h3 data-testid="recipe-category">
         { recipeDetails.alcoholic || recipeDetails.category }
       </h3>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        Share
-      </button>
+      <div>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ copyLink }
+        >
+          Share
+        </button>
+        { wasCopied && (<p>Link copied!</p>)}
+      </div>
       <button
         type="button"
         data-testid="favorite-btn"
+        onClick={ handlerFavoriteRecipe }
+        src={ favoriteIcon }
       >
-        Favorite
+        {isRecipeFavorite !== undefined && (<img src={ favoriteIcon } alt="" />)}
       </button>
       <h2>Ingredients</h2>
       <ul>
@@ -139,7 +165,6 @@ function RecipeDetail() {
         } }
         data-testid="recomendations-card"
       >
-        {/* <input type="button" value="<" onClick={ previousRecommendations } /> */}
         { recommendations.map((recommendation, index) => (
           <div key={ index } data-testid={ `${index}-recomendation-card` }>
             <img
@@ -156,7 +181,6 @@ function RecipeDetail() {
             </p>
           </div>
         ))}
-        {/* <input type="button" value=">" onClick={ nextRecommendations } /> */}
       </div>
       { wasAlreadyDone() && (
         <Link to={ `${location.pathname}/in-progress` }>
