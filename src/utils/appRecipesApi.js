@@ -8,7 +8,7 @@ const appRecipesApi = async () => {
     .then((res) => res.json())
     .then((res) => res.meals);
   const ingredientsData = await
-  fetch('https://filter.php?i/list.php?i=list')
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
     .then((res) => res.json())
     .then((res) => res.meals);
 
