@@ -12,11 +12,12 @@ const formatRecipe = (recipe) => {
     id: recipe.idMeal || recipe.idDrink,
     thumb: recipe.strDrinkThumb || recipe.strMealThumb,
     name: recipe.strDrink || recipe.strMeal,
-    category: recipe.strCategory,
+    category: recipe.strCategory || '',
     ingredients,
     instructions: recipe.strInstructions,
     video,
-    alcoholic: recipe.strAlcoholic,
+    alcoholic: recipe.strAlcoholic || '',
+    nationality: recipe.strArea || '',
   };
 };
 
