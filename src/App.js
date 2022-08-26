@@ -9,6 +9,8 @@ import Profile from './pages/Profile';
 import { RecipesProvider } from './context/RecipesContext';
 import FoodDetail from './pages/FoodDetail';
 import DrinkDetail from './pages/DrinkDetail';
+import FoodInProgress from './pages/FoodInProgress';
+import DrinkInProgress from './pages/DrinkInProgress';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/profile" exact component={ Profile } />
         <Route path="/done-recipes" exact component={ DoneRecipes } />
         <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
+        <Route path="/foods/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/drinks/:id/in-progress" component={ DrinkInProgress } />
         <RecipesProvider>
           <Route path="/foods/:id" component={ FoodDetail } />
           <Route path="/drinks/:id" component={ DrinkDetail } />

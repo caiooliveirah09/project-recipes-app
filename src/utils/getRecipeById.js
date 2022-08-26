@@ -9,6 +9,7 @@ const formatRecipe = (recipe) => {
   const urlVideoSplitted = urlVideo ? urlVideo.split('watch?v=') : urlVideo;
   const video = urlVideo ? `${urlVideoSplitted[0]}embed/${urlVideoSplitted[1]}` : '';
   return {
+    id: recipe.idMeal || recipe.idDrink,
     thumb: recipe.strDrinkThumb || recipe.strMealThumb,
     name: recipe.strDrink || recipe.strMeal,
     category: recipe.strCategory,

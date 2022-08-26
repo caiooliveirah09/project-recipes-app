@@ -26,7 +26,6 @@ const drinkRecipesApi = async (length) => {
 };
 
 const fetchRecommendedRecipes = async (isFoodRecipes, length) => {
-  console.log(2, isFoodRecipes);
   if (isFoodRecipes) return foodRecipesApi(length);
   if (isFoodRecipes !== undefined) return drinkRecipesApi(length);
   return [];
