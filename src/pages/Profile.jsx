@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
 // import DoneRecipes from './DoneRecipes';
@@ -17,6 +18,7 @@ export default function Profile() {
   return (
     <div>
       <Header />
+      <Footer />
       <fieldset>
         <p
           type="email"
