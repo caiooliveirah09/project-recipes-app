@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { screen } from '@testing-library/react';
 import DrinkDetail from '../pages/DrinkDetail';
 // import App from '../App';
@@ -14,3 +14,4 @@ describe('test the DrinkDetail page', () => {
     // const error = screen.getByText('error');
   });
 });
+*/

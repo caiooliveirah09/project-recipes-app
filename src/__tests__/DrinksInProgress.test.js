@@ -33,7 +33,7 @@ const favoriteRecipes = [
   },
 ];
 
-describe('test the Recipe Detail component', () => {
+describe('test the Drinks In Pogress component', () => {
   beforeEach(() => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(favoriteRecipes));
     const mockClipboard = {
@@ -49,7 +49,6 @@ describe('test the Recipe Detail component', () => {
     global.navigator.clipboard = originalClipboard;
   });
   test('1 - tests the entire recipe detail page', async () => {
-    localStorage.clear();
     const { history } = renderWithRouterAndContext(<App />);
     expect(history.location.pathname).toBe('/');
     const emailInput = screen.getByTestId(email);
@@ -60,9 +59,12 @@ describe('test the Recipe Detail component', () => {
     userEvent.click(loginSubmitBtn);
     const corba = await screen.findByText('Corba');
     expect(corba).toBeInTheDocument();
-    userEvent.click(corba);
-    const recipeTitle = await screen.findByText('Corba');
-    expect(recipeTitle).toBeInTheDocument();
+    const drinks = await screen.findByTestId('drinks-bottom-btn');
+    userEvent.click(drinks);
+    const GG = await screen.findByText('GG');
+    userEvent.click(GG);
+    const heading = await screen.findByRole('heading', { name: /optional alcohol/i });
+    expect(heading).toBeInTheDocument();
     const favoriteBtn = await screen.findByTestId('favorite-btn');
     expect(favoriteBtn).toBeInTheDocument();
     const shareBtn = await screen.findByTestId('share-btn');
@@ -71,21 +73,17 @@ describe('test the Recipe Detail component', () => {
     const shared = await screen.findByText('Link copied!');
     expect(shared).toBeInTheDocument();
     expect(navigator.clipboard.writeText).toBeCalledTimes(1);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost/foods/52977');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost/drinks/15997');
     userEvent.click(favoriteBtn);
     userEvent.click(favoriteBtn);
     const ingredient0 = screen.getAllByRole('listitem')[0];
     expect(ingredient0).toBeInTheDocument();
     const instructions = await screen.findByTestId('instructions');
     expect(instructions).toBeInTheDocument();
-    const youtubeVideoPlayer = screen.getByTitle('YouTube video player');
-    expect(youtubeVideoPlayer).toBeInTheDocument();
-    expect(youtubeVideoPlayer).toHaveAttribute('src', 'https://www.youtube.com/embed/VVnZd8A84z4');
-    const GGimg = await screen.findByRole('img', { name: /gg/i });
-    expect(GGimg).toBeInTheDocument();
-    const GG = await screen.findByText('GG');
-    expect(GG).toBeInTheDocument();
-    userEvent.click(youtubeVideoPlayer);
+    const Corbaimg = await screen.findByRole('img', { name: /corba/i });
+    expect(Corbaimg).toBeInTheDocument();
+    const Corba = await screen.findByText('Corba');
+    expect(Corba).toBeInTheDocument();
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
     userEvent.click(startRecipeBtn);
   });

@@ -1,4 +1,3 @@
-import clipboardCopy from 'clipboard-copy';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesContext';
@@ -71,7 +70,7 @@ function RecipeDetail() {
   };
 
   const copyLink = () => {
-    clipboardCopy(window.location.href);
+    navigator.clipboard.writeText(window.location.href);
     setWasCopied(true);
   };
 
