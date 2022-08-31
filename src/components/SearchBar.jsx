@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import Context from '../context/Context';
 
 export default function SearchBar() {
+  const {
+    updateResearchFilter, getApiMeals, getApiDrinks,
+  } = useContext(Context);
+
+  const { location: { pathname } } = useHistory();
+  const requestApi = pathname === '/foods' ? getApiMeals : getApiDrinks;
+
   return (
     <div>
       <form>
@@ -11,6 +20,7 @@ export default function SearchBar() {
             type="radio"
             name="searchFilter"
             data-testid="ingredient-search-radio"
+            onChange={ ({ target: { value } }) => updateResearchFilter(value) }
           />
           Ingredient
         </label>
@@ -22,6 +32,7 @@ export default function SearchBar() {
             type="radio"
             name="searchFilter"
             data-testid="name-search-radio"
+            onChange={ ({ target: { value } }) => updateResearchFilter(value) }
           />
           Name
         </label>
@@ -33,6 +44,7 @@ export default function SearchBar() {
             type="radio"
             name="searchFilter"
             data-testid="first-letter-search-radio"
+            onChange={ ({ target: { value } }) => updateResearchFilter(value) }
           />
           First letter
         </label>
@@ -40,6 +52,7 @@ export default function SearchBar() {
         <button
           type="button"
           data-testid="exec-search-btn"
+          onClick={ requestApi }
         >
           Search
         </button>
