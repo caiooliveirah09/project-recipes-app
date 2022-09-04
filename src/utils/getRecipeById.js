@@ -1,4 +1,4 @@
-const formatRecipe = (recipe) => {
+export const formatRecipe = (recipe) => {
   const ingredients = [];
   for (let i = 1; recipe[`strIngredient${i}`]; i += 1) {
     const ingredient = recipe[`strIngredient${i}`];
@@ -8,6 +8,9 @@ const formatRecipe = (recipe) => {
   const urlVideo = (recipe.strYoutube || '');
   const urlVideoSplitted = urlVideo ? urlVideo.split('watch?v=') : urlVideo;
   const video = urlVideo ? `${urlVideoSplitted[0]}embed/${urlVideoSplitted[1]}` : '';
+  const type = Object.keys(recipe)[0] === 'idDrink' ? 'drink' : 'food';
+
+  console.log(recipe);
   return {
     id: recipe.idMeal || recipe.idDrink,
     thumb: recipe.strDrinkThumb || recipe.strMealThumb,
@@ -18,17 +21,19 @@ const formatRecipe = (recipe) => {
     video,
     alcoholic: recipe.strAlcoholic || '',
     nationality: recipe.strArea || '',
+    type,
+    tags: recipe.strTags,
   };
 };
 
-const getFoodRecipeById = async (id) => {
+export const getFoodRecipeById = async (id) => {
   const recipe = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
     .then((res) => res.json())
     .then((res) => res.meals[0]);
   return formatRecipe(recipe);
 };
 
-const getDrinkRecipeById = async (id) => {
+export const getDrinkRecipeById = async (id) => {
   const recipe = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
     .then((res) => res.json())
     .then((res) => res.drinks[0]);
