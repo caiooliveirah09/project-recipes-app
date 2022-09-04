@@ -2,6 +2,7 @@ import clipboardCopy from 'clipboard-copy';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function DoneRecipes() {
   const itens = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -69,21 +70,33 @@ export default function DoneRecipes() {
                 <Link
                   to={ `foods/${r.id}` }
                 >
-                  <img src={ r.thumb } data-testid={ `${i}-horizontal-image` } alt="" />
+                  <img
+                    style={ { width: '350px' } }
+                    data-testid={ `${i}-horizontal-image` }
+                    src={ r.image }
+                    alt={ r.name }
+                  />
                 </Link>
-                <h1 data-testid={ `${i}-horizontal-name` }>{r.name}</h1>
-                <p data-testid={ `${i}-horizontal-top-text` }>{r.category}</p>
-                <p data-testid={ `${i}-horizontal-done-date` }>{r.date}</p>
+                <Link
+                  to={ `foods/${r.id}` }
+                >
+                  <h1 data-testid={ `${i}-horizontal-name` }>{r.name}</h1>
+                </Link>
+                <p data-testid={ `${i}-horizontal-top-text` }>
+                  {`${r.nationality} - ${r.category}`}
+                </p>
+                <date data-testid={ `${i}-horizontal-done-date` }>{r.doneDate}</date>
                 <p data-testid={ `${i}-Pasta-horizontal-tag` }>{r.tags}</p>
-                <p data-testid={ `${i}-Curry-horizontal-tag` }>{r.nationality}</p>
+                <p data-testid={ `${i}-Curry-horizontal-tag` }>{r.tags}</p>
               </div>
               <div>
                 <button
                   type="button"
                   data-testid={ `${i}-horizontal-share-btn` }
                   onClick={ () => { copyLink('foods', r.id); } }
+                  src={ shareIcon }
                 >
-                  Share
+                  <img src={ shareIcon } alt="" />
                 </button>
                 {wasCopied && (<p>Link copied!</p>)}
               </div>
@@ -95,20 +108,29 @@ export default function DoneRecipes() {
                   <Link
                     to={ `drinks/${r.id}` }
                   >
-                    <img src={ r.thumb } data-testid={ `${i}-horizontal-image` } alt="" />
+                    <img
+                      style={ { width: '350px' } }
+                      data-testid={ `${i}-horizontal-image` }
+                      src={ r.image }
+                      alt={ r.name }
+                    />
                   </Link>
-                  <h1 data-testid={ `${i}-horizontal-name` }>{r.name}</h1>
-                  <p data-testid={ `${i}-horizontal-top-text` }>{r.category}</p>
-                  <p data-testid={ `${i}-horizontal-done-date` }>{r.date}</p>
-                  <p>{r.alcoholic}</p>
+                  <Link
+                    to={ `drinks/${r.id}` }
+                  >
+                    <h1 data-testid={ `${i}-horizontal-name` }>{r.name}</h1>
+                  </Link>
+                  <p data-testid={ `${i}-horizontal-top-text` }>{r.alcoholicOrNot}</p>
+                  <date data-testid={ `${i}-horizontal-done-date` }>{r.doneDate}</date>
                 </div>
                 <div>
                   <button
                     type="button"
+                    src={ shareIcon }
                     data-testid={ `${i}-horizontal-share-btn` }
                     onClick={ () => { copyLink('drinks', r.id); } }
                   >
-                    Share
+                    <img src={ shareIcon } alt="" />
                   </button>
                   {wasCopied && (<p>Link copied!</p>)}
                 </div>

@@ -20,6 +20,13 @@ export default function DrinkInProgress({ match }) {
 
   console.log(drink);
 
+  const dataActual = new Date();
+  const dia = String(dataActual.getDate()).padStart(2, '0');
+  const mes = String(dataActual.getMonth() + 1).padStart(2, '0');
+  const ano = dataActual.getFullYear();
+  const dataAtual = `${dia}/${mes}/${ano}`;
+  console.log(dataAtual);
+
   useEffect(() => {
     async function recipe() {
       const currentDrink = await getDrinkRecipeById(pageId);
@@ -189,14 +196,13 @@ export default function DrinkInProgress({ match }) {
             }
             onClick={ () => {
               const done = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-              const date = Date.now();
-              const today = new Date(date);
-              const useDate = today.toDateString(); // "Sun Jan 30 2022"
               localStorage.setItem('doneRecipes', JSON.stringify([
                 ...done,
                 {
                   ...drink,
-                  date: useDate,
+                  image: drink.thumb,
+                  doneDate: dataAtual,
+                  alcoholicOrNot: drink.alcoholic,
                 },
               ]));
               history.push('/done-recipes');
