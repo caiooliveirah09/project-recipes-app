@@ -10,11 +10,11 @@ const renderWithRouterAndContext = (component, route = '/') => {
   return ({
     ...render(
       <Router history={ history }>
-        <Provider />
-        <RecipesProvider>
-          {component}
-        </RecipesProvider>
-        <Provider />
+        <Provider>
+          <RecipesProvider>
+            {component}
+          </RecipesProvider>
+        </Provider>
       </Router>,
     ),
     history,
